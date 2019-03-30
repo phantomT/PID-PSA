@@ -7,6 +7,7 @@
 #include <QDataStream>
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -53,11 +54,10 @@ private slots:
 
     void on_OpenAll_clicked();
 
-    void on_CheckNewLine_clicked(bool checked);
-
 private:
     Ui::MainWindow *ui;
     QSerialPort *serial;
+    QTimer *timer;
 };
 
 #endif // MAINWINDOW_H

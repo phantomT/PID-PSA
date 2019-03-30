@@ -35,6 +35,18 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->PIDSend->setEnabled(false);
     }
+
+
+    ui->TimeSet->setValidator(new QIntValidator(ui->TimeSet));
+    ui->TimeSet->setMaxLength(5);
+    ui->SettingT->setValidator(new QIntValidator(ui->SettingT));
+    ui->SettingT->setMaxLength(6);
+
+    QRegExp rx("^(-?[0]|-?[1-9][0-9]{0,5})(?:\\.\\d{1,4})?$|(^\\t?$)");     //pid参数有效性检测->正则表达式[-999999.9999,999999.9999]
+    QRegExpValidator *pReg = new QRegExpValidator(rx,this);
+    ui->SettingP->setValidator(pReg);
+    ui->SettingI->setValidator(pReg);
+    ui->SettingD->setValidator(pReg);
 }
 
 MainWindow::~MainWindow()
@@ -95,9 +107,16 @@ void MainWindow::on_PIDPlot_clicked()
 void MainWindow::on_SendData_clicked()
 {
     QString trans = ui->SendText->toPlainText();
-    if(ui->CheckNewLine->isChecked()==true)
+    if(ui->CheckNewLine->isChecked()==true)             //检查是否要发送新行
         trans += "\r\n";
     serial->write(trans.toLatin1());
+
+    if(ui->CheckTime->isChecked() == true)              //检查是否要定时发送
+    {
+        QTimer *timer=new QTimer(this);
+        connect(timer,SIGNAL(timeout()),this,SLOT(on_SendData_clicked()));
+        timer->start(ui->TimeSet->text().toLong());
+    }
 }
 
 void MainWindow::on_ClearSend_clicked()
