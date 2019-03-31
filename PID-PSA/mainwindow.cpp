@@ -1,11 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+QT_CHARTS_USE_NAMESPACE
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     //查找可用端口
     foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
     {
@@ -29,7 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->ClearRecieve->setEnabled(false);
         ui->SaveRecieve->setEnabled(false);
-        ui->PIDPlot->setEnabled(false);
     }
     if(ui->SettingP->text()==""||ui->SettingI->text()==""||ui->SettingD->text()==""||ui->SettingT->text()=="")
     {
@@ -47,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->SettingP->setValidator(pReg);
     ui->SettingI->setValidator(pReg);
     ui->SettingD->setValidator(pReg);
+    ui->PIDPlot->setEnabled(true);
+
 }
 
 MainWindow::~MainWindow()
@@ -101,7 +105,21 @@ void MainWindow::on_PIDSend_clicked()
 
 void MainWindow::on_PIDPlot_clicked()
 {
-
+    if(ui->PIDPlot->text()=="绘制曲线")
+    {
+        ui->PIDPlot->setText(tr("停止绘制"));
+        pidtimer=ui->SettingT->text().toInt();
+        chart = new Chart;
+        chart->legend()->hide();
+        chart->setAnimationOptions(QChart::AllAnimations);
+        ui->Plot->setRenderHint(QPainter::Antialiasing);
+        ui->Plot->setChart(chart);
+    }
+    else
+    {
+        ui->PIDPlot->setText(tr("绘制曲线"));
+        chart->m_timer.stop();
+    }
 }
 
 void MainWindow::on_SendData_clicked()

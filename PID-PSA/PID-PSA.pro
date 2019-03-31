@@ -28,10 +28,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    chart.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    chart.h
 
 FORMS += \
         mainwindow.ui

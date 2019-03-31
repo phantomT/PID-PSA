@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QIcon>
 
+int pidtimer;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

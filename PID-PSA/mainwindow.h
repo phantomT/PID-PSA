@@ -8,6 +8,8 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QTimer>
+#include <cmath>
+#include "chart.h"
 
 namespace Ui {
 class MainWindow;
@@ -58,6 +60,8 @@ private:
     Ui::MainWindow *ui;
     QSerialPort *serial;
     QTimer *timer;
+    Chart *chart;
 };
 
+extern int pidtimer;
 #endif // MAINWINDOW_H
