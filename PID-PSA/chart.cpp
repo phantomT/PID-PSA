@@ -13,7 +13,7 @@ Chart::Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     m_series(nullptr),
     m_axisX(new QValueAxis()),
     m_axisY(new QValueAxis()),
-    m_step(0),
+    m_step(5),
     m_x(40),
     m_y(0)
 {
@@ -53,7 +53,8 @@ void Chart::handleTimeout()
     qreal x = plotArea().width() / m_axisX->tickCount();
     qreal y = (m_axisX->max() - m_axisX->min()) / m_axisX->tickCount();
     m_x += y;
-    m_y = sin(m_x);
+    //m_y = sin(m_x);
+    m_y = recdata;
     m_series->append(m_x,m_y);
     scroll(x,0);
     //if(m_x == 100)

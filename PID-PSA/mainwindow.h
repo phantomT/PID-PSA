@@ -59,9 +59,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QSerialPort *serial;
-    QTimer *timer;
     Chart *chart;
 };
 
 extern int pidtimer;
+extern qreal recdata;
 #endif // MAINWINDOW_H

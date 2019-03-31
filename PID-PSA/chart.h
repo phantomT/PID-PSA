@@ -43,4 +43,5 @@ private:
 
 //![1]
 extern int pidtimer;
+extern qreal recdata;
 #endif // CHART_H

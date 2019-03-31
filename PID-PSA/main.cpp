@@ -3,6 +3,7 @@
 #include <QIcon>
 
 int pidtimer;
+qreal recdata;
 
 int main(int argc, char *argv[])
 {
