@@ -28,11 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->ClearSend->setEnabled(false);
         ui->SendData->setEnabled(false);
     }
-    if(ui->RecieveText->toPlainText()=="")
-    {
-        ui->ClearRecieve->setEnabled(false);
-        ui->SaveRecieve->setEnabled(false);
-    }
+
+    ui->ClearRecieve->setEnabled(true);
+    ui->SaveRecieve->setEnabled(true);
+
     if(ui->SettingP->text()==""||ui->SettingI->text()==""||ui->SettingD->text()==""||ui->SettingT->text()=="")
     {
         ui->PIDSend->setEnabled(false);
@@ -228,14 +227,9 @@ void MainWindow::on_SettingT_textEdited(const QString &arg1)
 
 void MainWindow::on_RecieveText_historyChanged()
 {
-    if(ui->RecieveText->toPlainText()=="")
-    {
-        ui->PIDPlot->setEnabled(false);
-    }
-    else
-    {
-        ui->PIDPlot->setEnabled(true);
-    }
+    ui->PIDPlot->setEnabled(true);
+    ui->ClearRecieve->setEnabled(true);
+    ui->SaveRecieve->setEnabled(true);
 }
 
 void MainWindow::on_OpenAll_clicked()
